@@ -27,6 +27,12 @@
   <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
 {{ end }}
 
+<!-- Dynamic text-align from Hugo params -->
+<style>
+  :root {
+    --text-align: {{ .Site.Params.textAlign | default "left" }};
+  }
+</style>
 
 {{ range $val := $.Site.Params.customCSS }}
     {{ if gt (len $val) 0 }}
