@@ -1,0 +1,4 @@
+{{ $title := .Get 0 }}
+<div class="code-tab" data-title="{{ $title }}">
+{{ .Inner | $.Page.RenderString }}
+</div>

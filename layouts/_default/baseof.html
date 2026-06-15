@@ -2,6 +2,11 @@
 <html lang="{{ .Site.Language }}" dir="{{ .Site.Language.LanguageDirection | default "ltr" }}">
     <head>
         {{ partial "head.html" . }}
+
+        {{ with resources.Get "css/tabs.css" }}
+            {{ $css := . | resources.Minify | resources.Fingerprint }}
+            <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+        {{ end }}
     </head>
 
     {{ block "body" . }}
@@ -19,5 +24,10 @@
         </div>
 
         {{ partial "javascript.html" . }}
+
+        {{ with resources.Get "js/tabs.js" }}
+            {{ $js := . | resources.Minify | resources.Fingerprint }}
+            <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+        {{ end }}
     </body>
 </html>
