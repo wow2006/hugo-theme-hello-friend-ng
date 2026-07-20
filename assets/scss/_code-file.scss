@@ -1,0 +1,112 @@
+/* Source files embedded by the {{< code >}} shortcode.
+ *
+ * The caption is deliberately a light label sitting above the block rather than
+ * a bar welded to it: the code block's frame comes from Prism (0.3em border,
+ * 0.5em radius, its own margins) on top of Chroma's inline background, and
+ * anything that tries to butt up against that has to fight both.
+ */
+.code-file {
+  /* _main.scss makes every figure a shrink-to-fit `display: table`, which would
+     collapse a code block to the width of its longest line. */
+  display: block;
+  max-width: 100%;
+  margin: 25px 0;
+
+  .code-file-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    /* Sit close to the block below, allowing for Prism's own 0.5em top margin. */
+    margin: 0 0 -0.25em;
+    padding: 0 0.4em;
+    font-size: 13px;
+    line-height: 1.6;
+    /* _main.scss dims every figcaption to 0.8; these children set their own. */
+    opacity: 1;
+  }
+
+  .code-file-name {
+    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    overflow-wrap: anywhere;
+    color: $light-color-secondary;
+
+    @media (prefers-color-scheme: dark) {
+      color: $dark-color-secondary;
+    }
+
+    @media (prefers-color-scheme: light) {
+      color: $light-color-secondary;
+    }
+
+    [data-theme=dark] & {
+      color: $dark-color-secondary;
+    }
+
+    [data-theme=light] & {
+      color: $light-color-secondary;
+    }
+  }
+
+  .code-file-link {
+    flex: 0 0 auto;
+    text-decoration: none;
+    border-bottom: 1px dotted currentColor;
+    color: $light-color-secondary;
+
+    &:hover {
+      color: $light-color-variant;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      color: $dark-color-secondary;
+
+      &:hover {
+        color: $dark-color-variant;
+      }
+    }
+
+    @media (prefers-color-scheme: light) {
+      color: $light-color-secondary;
+
+      &:hover {
+        color: $light-color-variant;
+      }
+    }
+
+    [data-theme=dark] & {
+      color: $dark-color-secondary;
+
+      &:hover {
+        color: $dark-color-variant;
+      }
+    }
+
+    [data-theme=light] & {
+      color: $light-color-secondary;
+
+      &:hover {
+        color: $light-color-variant;
+      }
+    }
+  }
+
+  /* Long single-line captions shouldn't push the layout wide on a phone. */
+  @media #{$media-size-phone} {
+    .code-file-head {
+      flex-wrap: wrap;
+      gap: 2px 12px;
+    }
+  }
+}
+
+/* Inside {{< tabs >}} the figure is now the tab's direct child, so the reset in
+   tabs.css (`.tab-content > div.highlight`) no longer reaches the code block and
+   the figure has to absorb it instead -- otherwise a gap opens under the tab nav. */
+.code-tabs .tab-content > .code-file {
+  margin-top: 0;
+
+  .code-file-head {
+    padding-top: 4px;
+  }
+}
